@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const products = [
+  {
+    title: 'Babelotheca',
+    kicker: 'Language · Reading',
+    href: 'https://babelotheca.com',
+    tags: ['NLP', 'Alignment', 'Web', 'EPUB/PDF'],
+    body:
+      'Read the world’s classics in two languages at once — aligned sentence by sentence, side by side, with tap-to-explain grammar and idiom. Bring your own PDF and get a bilingual version back in seconds.',
+  },
+  {
+    title: 'CityDataLab',
+    kicker: 'Real estate · Econometrics',
+    href: 'https://citydatalab.com',
+    tags: ['Hedonic models', 'Regression', 'Open data'],
+    body:
+      'Hedonic factor models that separate genuine price growth from changes in what is being sold — isolating the true return on floor area, freehold, energy rating and location across London, New York, Paris and more.',
+  },
+  {
+    title: "Ariadne's Gallery",
+    kicker: 'Art · Knowledge graphs',
+    href: 'https://ariadnesgallery.com',
+    tags: ['Knowledge graph', 'Embeddings', 'Search'],
+    body:
+      'Art exploration without dead ends: 116,000+ works connected into a living knowledge graph, with a “Stendhal Score” that rates every piece across ten emotional dimensions so you can search by how art feels.',
+  },
+  {
+    title: 'Property Analytics London',
+    kicker: 'Real estate · Quant',
+    href: 'https://www.propertyanalytics.london',
+    tags: ['Factor analysis', 'Time series'],
+    body:
+      'Cross-sectional factor analysis of the property market that identifies the uncorrelated factors driving market moves.',
+  },
+];
+
+const tools = [
+  {
+    title: 'Dodo',
+    kicker: 'Rhino / Grasshopper plugin',
+    href: 'https://www.food4rhino.com/en/app/dodo',
+    tags: ['ML', 'Optimization', 'Tensor fields', 'Linear algebra'],
+    body:
+      'A free plugin collecting scientific tools for computational designers — machine learning, non-linear optimization, tensor-field manipulation, isosurfaces via marching tetrahedra and linear algebra.',
+  },
+  {
+    title: 'Capybara',
+    kicker: 'Rhino / Grasshopper plugin · IASS 2018 @ MIT',
+    href: 'https://www.food4rhino.com/en/app/capybara',
+    tags: ['CGAL', 'libigl', 'Quad remeshing'],
+    body:
+      'Advanced mesh editing and analysis built on optimized C++ libraries (CGAL, libigl). Re-meshes any tri-mesh into a quad-only mesh by integrating conjugated stress- and curvature-aligned vector fields.',
+  },
+  {
+    title: 'Synera add-ins',
+    kicker: 'Partnership',
+    tags: ['Physics', 'Optimizer', 'SimScale', 'MS Office'],
+    body:
+      'Add-ins for the Synera visual-programming platform: Raphos Physics (a fast, robust spring-particle / dynamic-relaxation solver), Raphos Tools, Raphos Optimizer, a SimScale CFD connector and an MS Office connector.',
+  },
+];
+
+const research = [
+  {
+    title: 'Wind monitoring & structural dynamics',
+    kicker: 'Signal processing',
+    body:
+      'Field instrumentation of a high-rise: Arduino sensing of wind excitation and tower acceleration, statistical analysis of ~660M data points, and bespoke apps deriving transfer functions and correlations in real time.',
+  },
+  {
+    title: 'Free-form glass-panel optimization',
+    kicker: 'Computational geometry',
+    body:
+      'A two-stage algorithm that first reduces the curvature of doubly-curved glass panels, then clusters them to minimise the number of moulds — cutting cost and wastage on free-form façades.',
+  },
+  {
+    title: 'Steel connections by ML',
+    kicker: 'AI · Optimization',
+    body:
+      'Machine-learning and optimization algorithms that suggest steel-joint connections with high accuracy, wrapped in an interactive design framework.',
+  },
+  {
+    title: 'Reciprocal frame systems & gridshells',
+    kicker: 'Research',
+    body:
+      'Homogenization studies of the elastic behaviour of reciprocal systems and computational architecture work, presented at IASS 2013 and Advances in Architectural Geometry 2014.',
+  },
+];
+---
+
+<BaseLayout
+  title="Work — Raphos"
+  description="Selected Raphos work: data-science web products (Babelotheca, CityDataLab, Ariadne's Gallery, Property Analytics London), Rhino/Grasshopper tools (Dodo, Capybara), Synera add-ins and applied research."
+  path="/work"
+>
+  <section class="section page-head-section">
+    <div class="container container-wide">
+      <p class="eyebrow">Selected work</p>
+      <h1 class="page-title">Tools, products and research we’re proud of.</h1>
+      <p class="lede page-lede">
+        From plugins used by designers worldwide to data-science products and
+        instrumented buildings — a sample of what we build and ship.
+      </p>
+    </div>
+  </section>
+
+  <!-- Web / data-science products (featured) -->
+  <section class="section section--alt">
+    <div class="container container-wide">
+      <div class="section-head">
+        <p class="eyebrow">Products</p>
+        <h2>Data-science products we build and run.</h2>
+        <p>Independent products where we own the full stack — from the data and the models to the UI.</p>
+      </div>
+      <div class="grid grid--2 grid--3">
+        {products.map((p) => (
+          <ProjectCard title={p.title} kicker={p.kicker} href={p.href} tags={p.tags}>
+            {p.body}
+          </ProjectCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools & plugins -->
+  <section class="section">
+    <div class="container container-wide">
+      <div class="section-head">
+        <p class="eyebrow">Tools</p>
+        <h2>Plugins &amp; engineering tools.</h2>
+        <p>Free and commercial tools that put advanced geometry, optimization and ML in designers’ hands.</p>
+      </div>
+      <div class="grid grid--2 grid--3">
+        {tools.map((t) => (
+          <ProjectCard title={t.title} kicker={t.kicker} href={t.href} tags={t.tags}>
+            {t.body}
+          </ProjectCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- R&D / selected projects -->
+  <section class="section section--alt">
+    <div class="container container-wide">
+      <div class="section-head">
+        <p class="eyebrow">R&amp;D</p>
+        <h2>Applied research &amp; selected projects.</h2>
+        <p>We do R&amp;D for real — published, instrumented and shipped.</p>
+      </div>
+      <div class="grid grid--2">
+        {research.map((r) => (
+          <ProjectCard title={r.title} kicker={r.kicker}>
+            {r.body}
+          </ProjectCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="container container-wide cta-band">
+      <div>
+        <h2 class="cta-title">Want something like this built for you?</h2>
+        <p class="cta-sub">We take on unconventional challenges others won’t.</p>
+      </div>
+      <a class="btn btn--primary" href="mailto:lorenzo@raphos.com">
+        Get in touch <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head-section { padding-bottom: var(--space-7); }
+  .page-title { font-size: var(--fs-700); margin-top: var(--space-4); max-width: 18ch; }
+  .page-lede { margin-top: var(--space-5); }
+
+  .cta-band {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: var(--space-5); padding: var(--space-7); border-radius: var(--radius);
+    border: 1px solid var(--color-line);
+    background: radial-gradient(120% 140% at 100% 0%, var(--color-accent-wash), transparent 60%), var(--color-bg-alt);
+  }
+  .cta-title { font-size: var(--fs-500); }
+  .cta-sub { color: var(--color-ink-soft); margin-top: var(--space-2); }
+</style>

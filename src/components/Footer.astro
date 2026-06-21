@@ -1,0 +1,84 @@
+---
+export interface Props {
+  year?: number;
+}
+const { year = new Date().getFullYear() } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container container-wide footer-grid">
+    <div class="footer-brand">
+      <p class="footer-word">Raphos</p>
+      <p class="footer-tag">
+        Engineering, machine learning &amp; data science. Computational tools and
+        software for hard problems.
+      </p>
+    </div>
+
+    <nav class="footer-col" aria-label="Site">
+      <p class="mono-label">Site</p>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/capabilities">Capabilities</a></li>
+        <li><a href="/work">Work</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Elsewhere">
+      <p class="mono-label">Elsewhere</p>
+      <ul>
+        <li><a href="mailto:lorenzo@raphos.com">lorenzo@raphos.com</a></li>
+        <li>
+          <a href="https://uk.linkedin.com/company/raphos" rel="noopener" target="_blank">
+            LinkedIn
+          </a>
+        </li>
+        <li><span class="footer-loc">London, UK</span></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container container-wide footer-base">
+    <p>© {year} Raphos. All rights reserved.</p>
+    <p class="mono-label">Eng · ML · Data</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-line);
+    background: var(--color-bg-alt);
+    padding-block: var(--space-8) var(--space-5);
+    margin-top: var(--space-9);
+  }
+  .footer-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+  @media (min-width: 48em) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: var(--space-7); }
+  }
+  .footer-word { font-weight: 680; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--color-ink); }
+  .footer-tag { margin-top: var(--space-3); color: var(--color-muted); max-width: 38ch; font-size: var(--fs-200); }
+
+  .footer-col ul { margin-top: var(--space-3); }
+  .footer-col li + li { margin-top: var(--space-2); }
+  .footer-col a { color: var(--color-ink-soft); font-size: var(--fs-200); }
+  .footer-col a:hover { color: var(--color-accent); }
+  .footer-loc { color: var(--color-muted); font-size: var(--fs-200); }
+
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-line);
+    color: var(--color-muted);
+    font-size: var(--fs-200);
+  }
+  .footer-base p { margin: 0; }
+</style>

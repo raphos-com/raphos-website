@@ -1,0 +1,55 @@
+---
+export interface Props {
+  index?: string;
+  title: string;
+  href?: string;
+}
+const { index, title, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag class:list={['cap-card', { 'is-link': href }]} href={href}>
+  <div class="cap-top">
+    {index && <span class="cap-index">{index}</span>}
+    <h3>{title}</h3>
+  </div>
+  <p class="cap-body"><slot /></p>
+  {href && <span class="cap-more">Learn more <span class="arrow">→</span></span>}
+</Tag>
+
+<style>
+  .cap-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    height: 100%;
+    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease),
+      box-shadow 0.18s var(--ease);
+  }
+  .cap-card.is-link { color: inherit; }
+  .cap-card.is-link:hover {
+    text-decoration: none;
+    border-color: var(--color-line-strong);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px -24px rgba(20, 22, 26, 0.4);
+  }
+  .cap-top { display: flex; align-items: baseline; gap: var(--space-3); }
+  .cap-index {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+  }
+  .cap-card h3 { font-size: var(--fs-400); font-weight: 620; }
+  .cap-body { margin-top: var(--space-3); color: var(--color-ink-soft); font-size: var(--fs-200); line-height: 1.6; }
+  .cap-more {
+    margin-top: auto;
+    padding-top: var(--space-4);
+    font-size: var(--fs-200);
+    font-weight: 540;
+    color: var(--color-accent);
+  }
+</style>
