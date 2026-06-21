@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - claude/raphos-website-redesign-emtteu
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -18,6 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Build runs on every branch / PR as a validation step.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -27,10 +29,14 @@ jobs:
       - name: Build Astro site
         uses: withastro/action@v3
         with:
-          node-version: 20
+          node-version: 22
 
+  # Deploy only from the production branch (main). GitHub Pages serves a single
+  # site, so deploying from a feature branch would overwrite production.
+  # Requires Pages to be enabled: Settings -> Pages -> Source = "GitHub Actions".
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
