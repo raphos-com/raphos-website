@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CapabilityCard from '../components/CapabilityCard.astro';
+import { withBase } from '../lib/url';
 
 const capabilities = [
   {
@@ -55,10 +56,10 @@ const stats = [
         algorithms to problems other people call intractable.
       </p>
       <div class="hero-actions">
-        <a class="btn btn--primary" href="/capabilities">
+        <a class="btn btn--primary" href={withBase('/capabilities')}>
           What we do <span class="arrow">→</span>
         </a>
-        <a class="btn btn--ghost" href="/work">See our work</a>
+        <a class="btn btn--ghost" href={withBase('/work')}>See our work</a>
       </div>
     </div>
   </section>
@@ -80,7 +81,7 @@ const stats = [
         {capabilities.map((c) => (
           <CapabilityCard index={c.index} title={c.title}>{c.body}</CapabilityCard>
         ))}
-        <a class="cap-cta" href="/capabilities">
+        <a class="cap-cta" href={withBase('/capabilities')}>
           <span class="mono-label">Full breakdown</span>
           <span class="cap-cta-line">Explore every capability <span class="arrow">→</span></span>
         </a>
@@ -105,7 +106,7 @@ const stats = [
           computer science, structural engineering, machine and deep learning,
           signal processing, cloud development and finance.
         </p>
-        <p><a href="/contact" class="inline-cta">Tell us about your problem <span class="arrow">→</span></a></p>
+        <p><a href={withBase('/contact')} class="inline-cta">Tell us about your problem <span class="arrow">→</span></a></p>
       </div>
       <ul class="stat-list" aria-label="At a glance">
         {stats.map((s) => (
