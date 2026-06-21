@@ -1,0 +1,71 @@
+---
+export interface Props {
+  title: string;
+  kicker?: string;
+  href?: string;
+  tags?: string[];
+}
+const { title, kicker, href, tags = [] } = Astro.props;
+const external = href?.startsWith('http');
+---
+
+<article class="proj-card">
+  <header class="proj-head">
+    {kicker && <p class="mono-label">{kicker}</p>}
+    <h3 class="proj-title">
+      {href ? (
+        <a href={href} rel={external ? 'noopener' : undefined} target={external ? '_blank' : undefined}>
+          {title}{external && <span class="proj-ext" aria-hidden="true">↗</span>}
+        </a>
+      ) : (
+        title
+      )}
+    </h3>
+  </header>
+
+  <p class="proj-body"><slot /></p>
+
+  {tags.length > 0 && (
+    <ul class="proj-tags" aria-label="Technologies">
+      {tags.map((t) => <li>{t}</li>)}
+    </ul>
+  )}
+</article>
+
+<style>
+  .proj-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    height: 100%;
+    transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  }
+  .proj-card:hover {
+    border-color: var(--color-line-strong);
+    box-shadow: 0 14px 40px -26px rgba(20, 22, 26, 0.4);
+  }
+  .proj-title { font-size: var(--fs-400); font-weight: 620; margin-top: var(--space-2); }
+  .proj-title a { color: var(--color-ink); }
+  .proj-title a:hover { color: var(--color-accent); text-decoration: none; }
+  .proj-ext { font-size: 0.7em; margin-left: 0.25em; color: var(--color-muted); vertical-align: super; }
+  .proj-body { margin-top: var(--space-3); color: var(--color-ink-soft); font-size: var(--fs-200); line-height: 1.6; flex: 1; }
+  .proj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+  .proj-tags li {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-line);
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+  }
+</style>

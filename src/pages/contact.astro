@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const backgrounds = [
+  'Computer science',
+  'Structural engineering',
+  'Machine & deep learning',
+  'Signal processing',
+  'Cloud development',
+  'Finance',
+];
+---
+
+<BaseLayout
+  title="Contact — Raphos"
+  description="Get in touch with Raphos. We are engineers and scientists who tackle unconventional challenges with state-of-the-art algorithms and efficient software. Email lorenzo@raphos.com."
+  path="/contact"
+>
+  <section class="section contact-section">
+    <div class="container container-wide contact-grid">
+      <!-- left: pitch -->
+      <div class="contact-intro stack">
+        <p class="eyebrow">Contact</p>
+        <h1 class="contact-title">Let’s build something that didn’t exist before.</h1>
+        <p class="lede">
+          We are engineers and scientists with a wide background. We love to push
+          ourselves to tackle unconventional challenges — developing and
+          implementing state-of-the-art algorithms and channelling them into
+          efficient software.
+        </p>
+
+        <div class="bg-block">
+          <p class="mono-label">We draw from</p>
+          <ul class="bg-list">
+            {backgrounds.map((b) => <li>{b}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <!-- right: the actual contact card -->
+      <aside class="contact-card">
+        <p class="mono-label">Get in touch</p>
+        <a class="email-link" href="mailto:lorenzo@raphos.com?subject=Raphos%20enquiry">
+          lorenzo@raphos.com
+        </a>
+        <p class="contact-note">
+          Tell us a little about the problem — the data you have, the constraints,
+          and what a good outcome looks like. We read every message.
+        </p>
+
+        <a
+          class="btn btn--primary contact-btn"
+          href="mailto:lorenzo@raphos.com?subject=Raphos%20enquiry"
+        >
+          Email us <span class="arrow">→</span>
+        </a>
+
+        <dl class="contact-meta">
+          <div>
+            <dt>Based in</dt>
+            <dd>London, UK · working worldwide</dd>
+          </div>
+          <div>
+            <dt>Elsewhere</dt>
+            <dd>
+              <a href="https://uk.linkedin.com/company/raphos" rel="noopener" target="_blank">
+                LinkedIn ↗
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid { display: grid; gap: var(--space-7); align-items: start; }
+  @media (min-width: 54em) {
+    .contact-grid { grid-template-columns: 1.3fr 1fr; gap: var(--space-9); }
+  }
+  .contact-title { font-size: var(--fs-700); }
+
+  .bg-block { margin-top: var(--space-5); }
+  .bg-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .bg-list li {
+    font-size: var(--fs-200);
+    color: var(--color-ink-soft);
+    border: 1px solid var(--color-line);
+    border-radius: 100px;
+    padding: 0.35rem 0.85rem;
+    background: var(--color-bg);
+  }
+
+  .contact-card {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    background:
+      radial-gradient(140% 120% at 0% 0%, var(--color-accent-wash), transparent 55%),
+      var(--color-bg-alt);
+    position: sticky;
+    top: 5.5rem;
+  }
+  .email-link {
+    display: inline-block;
+    margin-top: var(--space-3);
+    font-size: var(--fs-500);
+    font-weight: 640;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    word-break: break-word;
+  }
+  .email-link:hover { color: var(--color-accent); }
+  .contact-note { margin-top: var(--space-4); color: var(--color-ink-soft); font-size: var(--fs-200); }
+  .contact-btn { margin-top: var(--space-5); }
+
+  .contact-meta {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-line);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .contact-meta dt { font-family: var(--font-mono); font-size: var(--fs-100); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
+  .contact-meta dd { margin-top: var(--space-1); color: var(--color-ink-soft); font-size: var(--fs-200); }
+</style>

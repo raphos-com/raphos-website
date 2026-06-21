@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CapabilityCard from '../components/CapabilityCard.astro';
+
+const capabilities = [
+  {
+    index: '01',
+    title: 'Automated FE Analysis',
+    body: 'Bespoke software to automate complex finite-element analysis and optimisation — custom plugins for the major FE and CAD tools.',
+  },
+  {
+    index: '02',
+    title: 'Machine Learning & Data Science',
+    body: 'Statistical and deep-learning models that turn raw data into actionable insight, decisions and design suggestions.',
+  },
+  {
+    index: '03',
+    title: 'Signal Processing & Dynamics',
+    body: 'Signals, sensors and structural dynamics — from correlated wind turbulence to months of accelerometer data.',
+  },
+  {
+    index: '04',
+    title: 'Computational Geometry',
+    body: 'Meshing, reparameterization and vector-field methods that make free-form geometry buildable and efficient.',
+  },
+  {
+    index: '05',
+    title: 'Cloud & Native Development',
+    body: 'Full-stack web and standalone C#/C++ applications — scalable frameworks, APIs and interactive 3D visualisation.',
+  },
+];
+
+const stats = [
+  { value: '2018', label: 'Founded in London' },
+  { value: '660M+', label: 'Sensor data points analysed' },
+  { value: 'IASS · AAG', label: 'Peer-reviewed research' },
+];
+---
+
+<BaseLayout
+  title="Raphos — Engineering, ML & Data Science"
+  path="/"
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="container container-wide hero-inner">
+      <p class="eyebrow">Engineering · Machine Learning · Data Science</p>
+      <h1 class="hero-title">
+        Sophisticated computational tools for hard engineering problems.
+      </h1>
+      <p class="lede hero-lede">
+        Raphos is a London consultancy at the intersection of engineering, ML and
+        quantitative methods. We apply technology, models and state-of-the-art
+        algorithms to problems other people call intractable.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="/capabilities">
+          What we do <span class="arrow">→</span>
+        </a>
+        <a class="btn btn--ghost" href="/work">See our work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES ===================== -->
+  <section class="section section--alt">
+    <div class="container container-wide">
+      <div class="section-head">
+        <p class="eyebrow">Capabilities</p>
+        <h2>Providing engineers with tools that didn't exist yesterday.</h2>
+        <p>
+          We develop computational solutions and standalone software for
+          engineering problems — combining classical numerical methods with modern
+          machine learning.
+        </p>
+      </div>
+
+      <div class="grid grid--2 grid--3 cap-grid">
+        {capabilities.map((c) => (
+          <CapabilityCard index={c.index} title={c.title}>{c.body}</CapabilityCard>
+        ))}
+        <a class="cap-cta" href="/capabilities">
+          <span class="mono-label">Full breakdown</span>
+          <span class="cap-cta-line">Explore every capability <span class="arrow">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== APPROACH ===================== -->
+  <section class="section">
+    <div class="container container-wide approach">
+      <div class="approach-text stack">
+        <p class="eyebrow">How we work</p>
+        <h2>Applying AI to real-world problems.</h2>
+        <p>
+          Deep learning and machine learning sit alongside more traditional
+          strategies to gain new insight from data and solve problems more
+          effectively. We don't chase hype — we build models that hold up under
+          engineering constraints.
+        </p>
+        <p>
+          We are engineers and scientists with a wide background, drawing from
+          computer science, structural engineering, machine and deep learning,
+          signal processing, cloud development and finance.
+        </p>
+        <p><a href="/contact" class="inline-cta">Tell us about your problem <span class="arrow">→</span></a></p>
+      </div>
+      <ul class="stat-list" aria-label="At a glance">
+        {stats.map((s) => (
+          <li>
+            <span class="stat-value">{s.value}</span>
+            <span class="stat-label">{s.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="section--tight">
+    <div class="container container-wide cta-band">
+      <div>
+        <h2 class="cta-title">Have a problem worth solving?</h2>
+        <p class="cta-sub">We love unconventional challenges. Let's talk.</p>
+      </div>
+      <a class="btn btn--primary" href="mailto:lorenzo@raphos.com">
+        Get in touch <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* hero */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4rem, 2rem + 10vw, 9rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 2.75rem 2.75rem;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 30% 20%, #000 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 70% at 30% 20%, #000 25%, transparent 75%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; }
+  .hero-title {
+    font-size: var(--fs-700);
+    max-width: 18ch;
+    margin-top: var(--space-4);
+  }
+  .hero-lede { margin-top: var(--space-5); max-width: 56ch; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+
+  .cap-grid { margin-top: var(--space-2); }
+  .cap-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: var(--space-5);
+    border-radius: var(--radius);
+    background: var(--color-ink);
+    color: var(--color-ink-invert);
+  }
+  .cap-cta:hover { text-decoration: none; }
+  .cap-cta .mono-label { color: var(--color-accent-soft); }
+  .cap-cta-line { font-size: var(--fs-400); font-weight: 600; }
+
+  /* approach */
+  .approach {
+    display: grid;
+    gap: var(--space-7);
+    align-items: start;
+  }
+  @media (min-width: 52em) {
+    .approach { grid-template-columns: 1.5fr 1fr; gap: var(--space-9); }
+  }
+  .approach-text h2 { font-size: var(--fs-600); }
+  .approach-text p { color: var(--color-ink-soft); }
+  .inline-cta { font-weight: 560; }
+  .stat-list {
+    display: grid;
+    gap: var(--space-4);
+    border-top: 2px solid var(--color-ink);
+    padding-top: var(--space-5);
+  }
+  .stat-list li {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .stat-value { font-size: var(--fs-500); font-weight: 680; letter-spacing: -0.02em; }
+  .stat-label { color: var(--color-muted); font-size: var(--fs-200); margin-top: var(--space-1); }
+
+  /* cta band */
+  .cta-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: var(--space-7);
+    border-radius: var(--radius);
+    border: 1px solid var(--color-line);
+    background:
+      radial-gradient(120% 140% at 100% 0%, var(--color-accent-wash), transparent 60%),
+      var(--color-bg-alt);
+  }
+  .cta-title { font-size: var(--fs-500); }
+  .cta-sub { color: var(--color-ink-soft); margin-top: var(--space-2); }
+</style>
