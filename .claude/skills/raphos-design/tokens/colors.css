@@ -1,0 +1,62 @@
+/* ============================================================
+   Raphos — Color
+   Dark ink on near-white paper, one restrained blue accent.
+   Technical, calm, high-contrast. Base palette + semantic aliases.
+   ============================================================ */
+
+:root {
+  /* ---- Paper / ink (base ramp) ---- */
+  --rf-paper:        #fbfbf9;  /* page background */
+  --rf-paper-alt:    #f2f2ee;  /* alternating / sunken sections */
+  --rf-paper-sink:   #eceae3;  /* wells, code blocks */
+  --rf-ink:          #14161a;  /* primary text, near-black */
+  --rf-ink-soft:     #3c4149;  /* secondary text */
+  --rf-muted:        #6b7079;  /* tertiary / captions */
+  --rf-line:         #e2e2dc;  /* hairline borders */
+  --rf-line-strong:  #cfcfc7;  /* stronger borders */
+  --rf-ink-invert:   #f5f6f8;  /* text on dark */
+
+  /* ---- Accent (Raphos blue) ---- */
+  --rf-accent:       #2f5fd0;  /* primary action, links */
+  --rf-accent-press: #2750b4;  /* pressed / hover-darken */
+  --rf-accent-soft:  #5b8def;  /* accent on dark surfaces */
+  --rf-accent-wash:  rgba(47, 95, 208, 0.08);  /* tint fills */
+  --rf-accent-line:  rgba(47, 95, 208, 0.30);  /* tinted borders */
+
+  /* ---- Technical node colors (from the 3D / field imagery) ---- */
+  --rf-node-lime:    #b7d43a;  /* structural node highlight */
+  --rf-node-amber:   #e8b53a;  /* warning / secondary node */
+  --rf-node-coral:   #e06848;  /* axis / alert node */
+
+  /* ---- Semantic status ---- */
+  --rf-success:      #1f8a5b;
+  --rf-success-wash: rgba(31, 138, 91, 0.10);
+  --rf-warning:      #b5810f;
+  --rf-warning-wash: rgba(181, 129, 15, 0.12);
+  --rf-danger:       #c0392b;
+  --rf-danger-wash:  rgba(192, 57, 43, 0.10);
+
+  /* ---- Dark surface (footers, inverted cards, code) ---- */
+  --rf-dark:         #0e1014;
+  --rf-dark-alt:     #15181e;
+  --rf-dark-line:    #262a31;
+
+  /* ============ Semantic aliases ============ */
+  --surface-page:    var(--rf-paper);
+  --surface-alt:     var(--rf-paper-alt);
+  --surface-card:    var(--rf-paper);
+  --surface-sink:    var(--rf-paper-sink);
+  --surface-invert:  var(--rf-dark);
+
+  --text-strong:     var(--rf-ink);
+  --text-body:       var(--rf-ink-soft);
+  --text-muted:      var(--rf-muted);
+  --text-invert:     var(--rf-ink-invert);
+  --text-link:       var(--rf-accent);
+
+  --border-hair:     var(--rf-line);
+  --border-strong:   var(--rf-line-strong);
+
+  --action-primary:  var(--rf-accent);
+  --action-hover:    var(--rf-accent-press);
+}

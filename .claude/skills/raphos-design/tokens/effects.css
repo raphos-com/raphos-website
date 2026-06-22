@@ -1,0 +1,31 @@
+/* ============================================================
+   Raphos — Effects: radius, border, shadow, motion
+   Restrained. Soft 10px radii, hairline borders, low-spread
+   shadows that only appear on hover. One shared easing curve.
+   ============================================================ */
+
+:root {
+  /* ---- Radius ---- */
+  --radius:    10px;   /* cards, panels, images */
+  --radius-sm: 6px;    /* buttons, inputs, chips */
+  --radius-pill: 100px;
+
+  /* ---- Border ---- */
+  --border:        1px solid var(--rf-line);
+  --border-strong: 1px solid var(--rf-line-strong);
+
+  /* ---- Shadow (low, cool, mostly hover-only) ---- */
+  --shadow-sm:  0 1px 2px rgba(20, 22, 26, 0.05);
+  --shadow-md:  0 14px 40px -24px rgba(20, 22, 26, 0.40);
+  --shadow-lg:  0 24px 60px -30px rgba(20, 22, 26, 0.45);
+  --shadow-focus: 0 0 0 3px var(--rf-accent-wash);
+
+  /* ---- Motion ---- */
+  --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);  /* default ease-out */
+  --dur-fast:  0.15s;
+  --dur-base:  0.18s;
+  --dur-slow:  0.3s;
+
+  /* ---- Hover lift used across cards/buttons ---- */
+  --lift: translateY(-3px);
+}

@@ -1,0 +1,10 @@
+/* ============================================================
+   Raphos — webfonts
+   Brand face is Inter (UI + display) with JetBrains Mono for
+   technical / code labels. Loaded from Google Fonts.
+   NOTE: the original site ships no webfont and falls back to a
+   system "Inter" stack. We load the real Inter + JetBrains Mono
+   here so specimens render faithfully. See README → CAVEATS.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&family=JetBrains+Mono:wght@400;500;600&display=swap");

@@ -1,0 +1,47 @@
+/* ============================================================
+   Raphos — Typography
+   Inter for everything visible; JetBrains Mono for technical
+   eyebrows, code, indices and data labels. Tight tracking on
+   display, generous line-height in body. Fluid display sizes.
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", "Fira Code", ui-monospace,
+    "Menlo", "Consolas", monospace;
+
+  /* ---- Type scale (fluid display, fixed text) ---- */
+  --fs-700: clamp(2.6rem, 1.4rem + 4.6vw, 4.4rem);   /* hero */
+  --fs-600: clamp(2rem, 1.3rem + 2.6vw, 3rem);       /* section H2 */
+  --fs-500: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);     /* H3 / stat */
+  --fs-400: clamp(1.18rem, 1.1rem + 0.4vw, 1.35rem); /* lede / card title */
+  --fs-300: 1.05rem;   /* body */
+  --fs-200: 0.92rem;   /* small / meta */
+  --fs-100: 0.8rem;    /* eyebrow / mono label */
+
+  /* ---- Line height ---- */
+  --lh-tight: 1.08;    /* display headings */
+  --lh-snug:  1.3;     /* lede, subheads */
+  --lh-body:  1.65;    /* paragraphs */
+
+  /* ---- Weight ---- */
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;   /* headings sit around 620-680 */
+  --fw-bold:    700;
+
+  /* ---- Tracking ---- */
+  --tracking-display: -0.02em;  /* headings pull in */
+  --tracking-mono:    0.1em;    /* mono labels space out */
+  --tracking-eyebrow: 0.18em;   /* uppercase eyebrows */
+
+  /* ---- Semantic aliases ---- */
+  --text-display:  var(--fs-700);
+  --text-heading:  var(--fs-600);
+  --text-title:    var(--fs-400);
+  --text-base:     var(--fs-300);
+  --text-small:    var(--fs-200);
+  --text-label:    var(--fs-100);
+}
