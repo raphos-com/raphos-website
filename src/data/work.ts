@@ -61,6 +61,15 @@ export interface Project {
   sections: BodySection[];
   /** Short "at a glance" bullets. */
   highlights: string[];
+  /** Optional labelled feature thumbnails, shown as a strip on the page. */
+  gallery?: GalleryItem[];
+}
+
+/** A small labelled image in a feature strip. */
+export interface GalleryItem {
+  src: string;
+  label: string;
+  fit?: 'cover' | 'contain';
 }
 
 export interface Category {
@@ -198,12 +207,6 @@ export const projects: Project[] = [
         ratio: '16 / 9',
         fit: 'cover',
       },
-      {
-        caption: 'Designing with scalar fields driven by the solver',
-        src: '/img/work/physics-fields.jpg',
-        ratio: '4 / 3',
-        fit: 'cover',
-      },
     ],
     sections: [
       {
@@ -231,6 +234,11 @@ export const projects: Project[] = [
       'Goal-based form-finding with weighted constraints',
       'Native Synera add-in — composable with full workflows',
       'Interactive on large meshes',
+    ],
+    gallery: [
+      { src: '/img/work/physics-am-channels.png', label: 'Additive manufacturing of channels', fit: 'cover' },
+      { src: '/img/work/physics-packing.png', label: 'Particle packing & collisions', fit: 'contain' },
+      { src: '/img/work/physics-fields.jpg', label: 'Design with fields', fit: 'cover' },
     ],
   },
   {
@@ -325,6 +333,14 @@ export const projects: Project[] = [
       'Everyday geometry and data utilities',
       'Faster than hand-built equivalents',
       'Keeps large Synera workflows clean and maintainable',
+    ],
+    gallery: [
+      { src: '/img/work/tool-curvature.png', label: 'Mesh curvature & curvature lines', fit: 'cover' },
+      { src: '/img/work/tool-mesh-from-points.png', label: 'Mesh from points', fit: 'cover' },
+      { src: '/img/work/tool-geodesics.png', label: 'Geodesics & shortest path', fit: 'cover' },
+      { src: '/img/work/tool-convex-hull.png', label: 'Convex hull', fit: 'cover' },
+      { src: '/img/work/tool-split-list.png', label: 'Split list', fit: 'contain' },
+      { src: '/img/work/tool-bucket-numbers.png', label: 'Bucket numbers', fit: 'contain' },
     ],
   },
   {

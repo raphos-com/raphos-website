@@ -155,6 +155,30 @@ const description = `${project.title} by Raphos — ${project.tagline}`;
       </div>
     </section>
 
+    {project.gallery && project.gallery.length > 0 && (
+      <section class="section--tight">
+        <div class="container container-wide">
+          <p class="mono-label gallery-label">Selected features</p>
+          <ul class="feature-grid">
+            {project.gallery.map((g) => (
+              <li class="feature-item">
+                <div class="feature-frame">
+                  <img
+                    src={withBase(g.src)}
+                    alt={g.label}
+                    loading="lazy"
+                    decoding="async"
+                    class:list={['feature-img', `fit-${g.fit ?? 'cover'}`]}
+                  />
+                </div>
+                <span class="feature-cap">{g.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
     {siblings.length > 0 && (
       <section class="section section--alt">
         <div class="container container-wide">
@@ -227,6 +251,36 @@ const description = `${project.title} by Raphos — ${project.tagline}`;
   .tick { color: var(--color-accent); font-weight: 700; }
 
   .inline-img { margin-top: var(--space-6); }
+
+  /* feature strip */
+  .gallery-label { color: var(--color-accent); }
+  .feature-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 40em) {
+    .feature-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  }
+  .feature-frame {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+  }
+  .feature-img { width: 100%; height: 100%; display: block; }
+  .feature-img.fit-cover { object-fit: cover; object-position: center; }
+  .feature-img.fit-contain { object-fit: contain; padding: var(--space-2); }
+  .feature-cap {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--fs-100);
+    color: var(--color-muted);
+    line-height: 1.4;
+  }
 
   /* aside */
   .proj-aside { display: grid; gap: var(--space-5); }
