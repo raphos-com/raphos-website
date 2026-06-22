@@ -10,6 +10,11 @@ const backgrounds = [
   'Cloud development',
   'Finance',
 ];
+
+// Web3Forms access key (free, tied to lorenzo@raphos.com — get one at
+// https://web3forms.com). Public by design: it lives in client-side HTML.
+// Submissions are emailed to the address the key is registered to.
+const WEB3FORMS_ACCESS_KEY = '05120f6b-ab58-492e-a397-d899837d5b8c';
 ---
 
 <BaseLayout
@@ -50,20 +55,44 @@ const backgrounds = [
       <!-- right: the actual contact card -->
       <aside class="contact-card">
         <p class="mono-label">Get in touch</p>
-        <a class="email-link" href="mailto:lorenzo@raphos.com?subject=Raphos%20enquiry">
-          lorenzo@raphos.com
-        </a>
         <p class="contact-note">
           Tell us a little about the problem — the data you have, the constraints,
           and what a good outcome looks like. We read every message.
         </p>
 
-        <a
-          class="btn btn--primary contact-btn"
-          href="mailto:lorenzo@raphos.com?subject=Raphos%20enquiry"
-        >
-          Email us <span class="arrow">→</span>
-        </a>
+        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+          <input type="hidden" name="subject" value="New enquiry via raphos.com" />
+          <input type="hidden" name="from_name" value="Raphos website" />
+          <!-- honeypot: bots fill this, humans never see it -->
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+          <label class="field">
+            <span class="field-label">Name</span>
+            <input class="field-input" type="text" name="name" autocomplete="name" required />
+          </label>
+
+          <label class="field">
+            <span class="field-label">Email</span>
+            <input class="field-input" type="email" name="email" autocomplete="email" placeholder="you@company.com" required />
+          </label>
+
+          <label class="field">
+            <span class="field-label">Message</span>
+            <textarea class="field-input" name="message" rows="5" required></textarea>
+          </label>
+
+          <button class="btn btn--primary contact-btn" type="submit">
+            Send message <span class="arrow">→</span>
+          </button>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="contact-note contact-or">
+          Prefer email? Write to
+          <a class="email-inline" href="mailto:lorenzo@raphos.com?subject=Raphos%20enquiry">lorenzo@raphos.com</a>.
+        </p>
 
         <dl class="contact-meta">
           <div>
@@ -118,18 +147,59 @@ const backgrounds = [
     position: sticky;
     top: 5.5rem;
   }
-  .email-link {
-    display: inline-block;
-    margin-top: var(--space-3);
-    font-size: var(--fs-500);
-    font-weight: 640;
-    letter-spacing: -0.02em;
-    color: var(--color-ink);
-    word-break: break-word;
-  }
-  .email-link:hover { color: var(--color-accent); }
   .contact-note { margin-top: var(--space-4); color: var(--color-ink-soft); font-size: var(--fs-200); }
-  .contact-btn { margin-top: var(--space-5); }
+  .contact-btn { margin-top: var(--space-2); }
+
+  /* form */
+  .contact-form {
+    margin-top: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .field { display: flex; flex-direction: column; gap: var(--space-2); }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .field-input {
+    font-family: var(--font-sans);
+    font-size: var(--fs-200);
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line-strong, var(--color-line));
+    border-radius: var(--radius-sm, 6px);
+    padding: 0.6rem 0.8rem;
+    width: 100%;
+    outline: none;
+    transition: border-color var(--dur-fast, 150ms) var(--ease, ease),
+      box-shadow var(--dur-fast, 150ms) var(--ease, ease);
+  }
+  textarea.field-input { resize: vertical; line-height: 1.5; }
+  .field-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-wash);
+  }
+  /* honeypot — hidden from humans and assistive tech */
+  .hp {
+    position: absolute !important;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  .form-status {
+    font-size: var(--fs-200);
+    line-height: 1.5;
+    margin: 0;
+    min-height: 1.2em;
+  }
+  .form-status[data-state='ok'] { color: var(--color-accent); }
+  .form-status[data-state='error'] { color: var(--rf-coral, #e06848); }
+  .contact-or { margin-top: var(--space-2); }
+  .email-inline { color: var(--color-accent); font-weight: 540; word-break: break-word; }
 
   .contact-meta {
     margin-top: var(--space-6);
@@ -141,3 +211,45 @@ const backgrounds = [
   .contact-meta dt { font-family: var(--font-mono); font-size: var(--fs-100); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
   .contact-meta dd { margin-top: var(--space-1); color: var(--color-ink-soft); font-size: var(--fs-200); }
 </style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  if (form && status) {
+    const button = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.textContent = 'Sending…';
+      status.removeAttribute('data-state');
+      if (button) button.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok && data.success) {
+          form.reset();
+          status.setAttribute('data-state', 'ok');
+          status.textContent = 'Thanks — your message is on its way. We’ll be in touch soon.';
+        } else {
+          status.setAttribute('data-state', 'error');
+          status.textContent =
+            (data && data.message) ||
+            'Something went wrong sending the form. Please email lorenzo@raphos.com.';
+        }
+      } catch {
+        status.setAttribute('data-state', 'error');
+        status.textContent =
+          'Network error — please try again, or email lorenzo@raphos.com.';
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  }
+</script>
