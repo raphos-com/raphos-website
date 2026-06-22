@@ -192,13 +192,13 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'The Raphos Physics solver form-finding a discrete catenary inside a Synera workflow',
-        src: '/img/work/physics-workflow.png',
+          'A tensile membrane form-found by the Raphos Physics solver',
+        src: '/img/work/physics-tent.png',
         ratio: '16 / 9',
-        fit: 'contain',
+        fit: 'cover',
       },
       {
-        caption: 'A cable net relaxed into a minimal surface by Raphos Physics',
+        caption: 'A cable net relaxed into a minimal surface inside a Synera workflow',
         src: '/img/work/physics-cablenet.png',
         ratio: '16 / 9',
         fit: 'contain',
@@ -347,10 +347,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'The Raphos SimScale Connector — cloud CFD / FEA driven straight from a Synera workflow',
+          'A SimScale CFD field result visualised back in Synera, driven from the workflow on the left',
         src: '/img/work/simscale.png',
         ratio: '16 / 9',
-        fit: 'contain',
+        fit: 'cover',
       },
     ],
     sections: [
