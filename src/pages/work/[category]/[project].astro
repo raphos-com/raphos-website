@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ImagePlaceholder from '../../../components/ImagePlaceholder.astro';
+import Figure from '../../../components/Figure.astro';
 import { withBase } from '../../../lib/url';
 import { projects, getCategory, siblingProjects } from '../../../data/work';
 
@@ -64,7 +65,17 @@ const description = `${project.title} by Raphos — ${project.tagline}`;
     {heroImage && (
       <section class="section--tight">
         <div class="container container-wide">
-          <ImagePlaceholder caption={heroImage.caption} ratio={heroImage.ratio} />
+          {heroImage.src ? (
+            <Figure
+              src={heroImage.src}
+              caption={heroImage.caption}
+              ratio={heroImage.ratio}
+              fit={heroImage.fit}
+              loading="eager"
+            />
+          ) : (
+            <ImagePlaceholder caption={heroImage.caption} ratio={heroImage.ratio} />
+          )}
         </div>
       </section>
     )}
@@ -89,10 +100,19 @@ const description = `${project.title} by Raphos — ${project.tagline}`;
               )}
               {inlineImages[i] && (
                 <div class="inline-img">
-                  <ImagePlaceholder
-                    caption={inlineImages[i].caption}
-                    ratio={inlineImages[i].ratio}
-                  />
+                  {inlineImages[i].src ? (
+                    <Figure
+                      src={inlineImages[i].src}
+                      caption={inlineImages[i].caption}
+                      ratio={inlineImages[i].ratio}
+                      fit={inlineImages[i].fit}
+                    />
+                  ) : (
+                    <ImagePlaceholder
+                      caption={inlineImages[i].caption}
+                      ratio={inlineImages[i].ratio}
+                    />
+                  )}
                 </div>
               )}
             </div>

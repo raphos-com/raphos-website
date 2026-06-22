@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Figure from '../components/Figure.astro';
 
 const sections = [
   {
@@ -8,6 +9,11 @@ const sections = [
     title: 'FE Analysis & Optimization',
     intro:
       'Bespoke software to automate complex finite-element analysis and structural optimisation — wrapped in tools your engineers can actually drive.',
+    image: {
+      src: '/img/site/fe-analysis.png',
+      caption: 'Raphos Design Aid: automated portal-frame analysis with embodied-energy metrics.',
+      fit: 'cover',
+    },
     points: [
       'Steel-member optimization that maximises utilisation across hyperstatic systems, re-solving internal forces at every iteration.',
       'Clustering of sections and parts to cut the number of distinct profiles — reducing variability, cost and waste while respecting constraints.',
@@ -22,6 +28,11 @@ const sections = [
     title: 'Machine Learning & Data Science',
     intro:
       'Machine learning, AI and state-of-the-art algorithms applied to engineering problems — from aerospace to civil to mechanical.',
+    image: {
+      src: '/img/site/ml.png',
+      caption: 'A neural network solving a combinatorial routing problem.',
+      fit: 'contain',
+    },
     points: [
       'Automatic design of steel-joint connections suggested with high accuracy by ML and optimization.',
       'Analysis of a wide range of medical scans to derive insight and support clinicians’ decisions.',
@@ -36,6 +47,11 @@ const sections = [
     title: 'Signal Processing & Dynamics',
     intro:
       'Signals, sensors and structural dynamics — research-grade methods turned into interactive, usable tools.',
+    image: {
+      src: '/img/site/signal.png',
+      caption: 'Across-wind force time histories from a high-rise wind-response study.',
+      fit: 'cover',
+    },
     points: [
       'Generation of spatially and temporally correlated signals from spectra, used to simulate wind turbulence on slender structures — skyscrapers, bridges and cable structures.',
       'Analysis of months of a high-rise building’s acceleration data and its correlation with wind speed.',
@@ -50,6 +66,11 @@ const sections = [
     title: 'Computational Geometry',
     intro:
       'Making free-form geometry buildable: meshing, reparameterization and vector-field methods built on optimized C++ libraries.',
+    image: {
+      src: '/img/site/geometry.jpg',
+      caption: 'A free-form surface panelised and rationalised for fabrication.',
+      fit: 'cover',
+    },
     points: [
       'Quad-only remeshing aligned to custom stress and curvature fields, with user-weighted field blending.',
       'State-of-the-art surface reparameterization and feature selection.',
@@ -64,6 +85,11 @@ const sections = [
     title: 'Software & Cloud Development',
     intro:
       'Full-stack web and standalone software — scalable, expandable, API-driven and easy to use.',
+    image: {
+      src: '/img/site/native.gif',
+      caption: 'A standalone Raphos application with interactive 3D structural visualisation.',
+      fit: 'cover',
+    },
     points: [
       'Standalone C#/C++ software, from simple GUIs to interactive 3D visualisation over your analysis backend.',
       'Large, scalable frameworks with clean APIs that are straightforward to expand.',
@@ -104,6 +130,11 @@ const sections = [
           <span class="cap-big-index">{s.index}</span>
           <h2>{s.title}</h2>
           <p class="cap-intro">{s.intro}</p>
+          {s.image && (
+            <div class="cap-img">
+              <Figure src={s.image.src} caption={s.image.caption} ratio="16 / 10" fit={s.image.fit} />
+            </div>
+          )}
         </div>
         <ul class="cap-points">
           {s.points.map((p) => (
@@ -164,6 +195,7 @@ const sections = [
   }
   .cap-aside h2 { font-size: var(--fs-600); margin-top: var(--space-3); }
   .cap-intro { margin-top: var(--space-4); color: var(--color-ink-soft); font-size: var(--fs-400); line-height: var(--lh-snug); }
+  .cap-img { margin-top: var(--space-5); }
 
   .cap-points { align-self: center; }
   .cap-points li {

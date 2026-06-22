@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ProjectCard from '../../../components/ProjectCard.astro';
 import ImagePlaceholder from '../../../components/ImagePlaceholder.astro';
+import Figure from '../../../components/Figure.astro';
 import { withBase } from '../../../lib/url';
 import { categories, projectsInCategory } from '../../../data/work';
 
@@ -54,7 +55,17 @@ const description = `${category.name} by Raphos — ${category.lede}`;
 
   <section class="section--tight">
     <div class="container container-wide">
-      <ImagePlaceholder caption={category.image.caption} ratio={category.image.ratio} />
+      {category.image.src ? (
+        <Figure
+          src={category.image.src}
+          caption={category.image.caption}
+          ratio={category.image.ratio}
+          fit={category.image.fit}
+          loading="eager"
+        />
+      ) : (
+        <ImagePlaceholder caption={category.image.caption} ratio={category.image.ratio} />
+      )}
     </div>
   </section>
 

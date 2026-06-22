@@ -24,3 +24,6 @@ yarn-error.log*
 *.wxr
 *-export*.zip
 raphos.WordPress.*.xml
+
+# transient image staging
+.img-staging/

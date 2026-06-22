@@ -29,12 +29,16 @@ export interface BodySection {
   list?: string[];
 }
 
-/** A placeholder for imagery to be supplied later. */
+/** An image (real, or a placeholder when src is absent). */
 export interface ImageSlot {
-  /** Describes what the final image should show (used as alt text too). */
+  /** Describes the image (used as alt text and caption). */
   caption: string;
+  /** Root-absolute path under /public, e.g. "/img/work/foo.png". Omit for a placeholder. */
+  src?: string;
   /** Aspect ratio, e.g. "16 / 9", "4 / 3", "1 / 1". Defaults to 16 / 9. */
   ratio?: string;
+  /** Fill mode: "cover" for screenshots/photos, "contain" for logos/diagrams. */
+  fit?: 'cover' | 'contain';
 }
 
 export interface Project {
@@ -98,8 +102,10 @@ export const categories: Category[] = [
     ],
     image: {
       caption:
-        'A Synera visual-programming canvas showing a Raphos add-in node wired into an engineering workflow',
+        'The Synera visual-programming platform — the automation environment the Raphos add-ins extend',
+      src: '/img/work/synera-splash.png',
       ratio: '16 / 9',
+      fit: 'cover',
     },
     projectSlugs: [
       'raphos-physics',
@@ -126,8 +132,10 @@ export const categories: Category[] = [
     ],
     image: {
       caption:
-        'A Grasshopper definition driving a Rhino model, with Raphos plugin components in the canvas',
+        'A doubly-curved structural shell modelled in Rhino — the kind of free-form geometry the Raphos plugins make buildable',
+      src: '/img/work/rhino-shell.png',
       ratio: '16 / 9',
+      fit: 'cover',
     },
     projectSlugs: ['dodo', 'capybara'],
   },
@@ -145,8 +153,10 @@ export const categories: Category[] = [
     links: [],
     image: {
       caption:
-        'A montage of the Raphos web products on desktop and mobile screens',
+        'CityDataLab — one of the live Raphos data-science web products',
+      src: '/img/work/web-products.png',
       ratio: '16 / 9',
+      fit: 'cover',
     },
     projectSlugs: [
       'babelotheca',
@@ -182,12 +192,16 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A tensile membrane being form-found in real time by the Raphos Physics solver in Synera',
+          'The Raphos Physics solver form-finding a discrete catenary inside a Synera workflow',
+        src: '/img/work/physics-workflow.png',
         ratio: '16 / 9',
+        fit: 'contain',
       },
       {
-        caption: 'Before / after of a flat mesh relaxed into a minimal surface',
-        ratio: '4 / 3',
+        caption: 'A cable net relaxed into a minimal surface by Raphos Physics',
+        src: '/img/work/physics-cablenet.png',
+        ratio: '16 / 9',
+        fit: 'contain',
       },
     ],
     sections: [
@@ -236,8 +250,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A convergence plot and a Pareto front produced by Raphos Optimizer over design iterations',
+          'The Raphos Optimizer running a neural-network-driven optimization inside Synera',
+        src: '/img/work/optimizer.gif',
         ratio: '16 / 9',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -284,8 +300,10 @@ export const projects: Project[] = [
     ],
     images: [
       {
-        caption: 'A selection of Raphos Tools components placed on the Synera canvas',
+        caption: 'A selection of Raphos Tools geometry components on the Synera canvas',
+        src: '/img/work/tools-components.png',
         ratio: '16 / 9',
+        fit: 'contain',
       },
     ],
     sections: [
@@ -329,8 +347,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A CFD result from SimScale being read back into Synera and visualised on the source geometry',
+          'The Raphos SimScale Connector — cloud CFD / FEA driven straight from a Synera workflow',
+        src: '/img/work/simscale.png',
         ratio: '16 / 9',
+        fit: 'contain',
       },
     ],
     sections: [
@@ -371,8 +391,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'An Excel sheet feeding parameters into a Synera workflow, with results written back automatically',
+          'A formatted report generated automatically from a Synera workflow via the MS Office Connector',
+        src: '/img/work/office-report.png',
         ratio: '16 / 9',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -418,12 +440,16 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A Grasshopper definition using Dodo components — a neural network and a tensor field driving geometry',
+          'A direction field generated and visualised across a surface with Dodo',
+        src: '/img/work/dodo-field.png',
         ratio: '16 / 9',
+        fit: 'cover',
       },
       {
-        caption: 'A tensor field visualised and used to orient elements across a surface',
+        caption: "An isosurface extracted with Dodo's marching-tetrahedra components",
+        src: '/img/work/dodo-isosurface.jpeg',
         ratio: '4 / 3',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -476,12 +502,16 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A triangle mesh remeshed into a quad-only mesh aligned to its curvature field, shown side by side',
+          'A surface remeshed into a quad-dominant mesh aligned to an integrated vector field with Capybara',
+        src: '/img/work/capybara-remesh.png',
         ratio: '16 / 9',
+        fit: 'cover',
       },
       {
-        caption: 'A stress-aligned vector field integrated across a doubly-curved surface',
+        caption: 'Principal-stress directions sampled across a doubly-curved surface',
+        src: '/img/work/capybara-stress.png',
         ratio: '4 / 3',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -531,12 +561,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'The Babelotheca reader showing a classic novel aligned sentence-by-sentence in two languages',
-        ratio: '16 / 9',
-      },
-      {
-        caption: 'Tap-to-explain grammar and idiom popover on a single sentence',
-        ratio: '4 / 3',
+          'The Babelotheca library — classic literature ready to read in two languages, sentence by sentence',
+        src: '/img/work/babelotheca.png',
+        ratio: '16 / 10',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -578,8 +606,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A CityDataLab dashboard showing hedonic price factors decomposed across a city',
+          'A CityDataLab hedonic decomposition — like-for-like returns on each property attribute, 1995–2025',
+        src: '/img/work/citydatalab.png',
         ratio: '16 / 9',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -621,12 +651,10 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'The Ariadne’s Gallery knowledge graph linking artworks, with the Stendhal Score on a selected piece',
-        ratio: '16 / 9',
-      },
-      {
-        caption: 'Search-by-feeling interface using the ten emotional dimensions',
-        ratio: '4 / 3',
+          'Ariadne’s Gallery — exploring 116,000 artworks by emotion and connection',
+        src: '/img/work/ariadnes.png',
+        ratio: '16 / 10',
+        fit: 'cover',
       },
     ],
     sections: [

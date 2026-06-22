@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Figure from '../components/Figure.astro';
 
 const backgrounds = [
   'Computer science',
@@ -34,6 +35,15 @@ const backgrounds = [
           <ul class="bg-list">
             {backgrounds.map((b) => <li>{b}</li>)}
           </ul>
+        </div>
+
+        <div class="contact-img">
+          <Figure
+            src="/img/site/studio.jpeg"
+            caption="The Raphos studio — Rhino, Grasshopper and a lot of code."
+            ratio="16 / 9"
+            fit="cover"
+          />
         </div>
       </div>
 
@@ -80,6 +90,7 @@ const backgrounds = [
     .contact-grid { grid-template-columns: 1.3fr 1fr; gap: var(--space-9); }
   }
   .contact-title { font-size: var(--fs-700); }
+  .contact-img { margin-top: var(--space-6); }
 
   .bg-block { margin-top: var(--space-5); }
   .bg-list {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CapabilityCard from '../components/CapabilityCard.astro';
+import Figure from '../components/Figure.astro';
 import { withBase } from '../lib/url';
 
 const capabilities = [
@@ -61,6 +62,19 @@ const stats = [
         </a>
         <a class="btn btn--ghost" href={withBase('/work')}>See our work</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== SHOWCASE ===================== -->
+  <section class="section--tight showcase">
+    <div class="container container-wide">
+      <Figure
+        src="/img/site/home-showcase.jpg"
+        caption="Detail of a reciprocal gridshell — the kind of structure our tools help design and build."
+        ratio="21 / 9"
+        fit="cover"
+        loading="eager"
+      />
     </div>
   </section>
 
