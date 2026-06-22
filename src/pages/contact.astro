@@ -11,15 +11,15 @@ const backgrounds = [
   'Finance',
 ];
 
-// Web3Forms access key (free, tied to lorenzo@raphos.com — get one at
-// https://web3forms.com). Public by design: it lives in client-side HTML.
-// Submissions are emailed to the address the key is registered to.
+// Web3Forms access key (free — get one at https://web3forms.com). Public by
+// design: it lives in client-side HTML. Submissions are emailed to the
+// address the key is registered to.
 const WEB3FORMS_ACCESS_KEY = '05120f6b-ab58-492e-a397-d899837d5b8c';
 ---
 
 <BaseLayout
   title="Contact — Raphos"
-  description="Get in touch with Raphos. We are engineers and scientists who tackle unconventional challenges with state-of-the-art algorithms and efficient software. Email lorenzo@raphos.com."
+  description="Get in touch with Raphos. We are engineers and scientists who tackle unconventional challenges with state-of-the-art algorithms and efficient software. Send us a message through the contact form."
   path="/contact"
 >
   <section class="section contact-section">
@@ -88,11 +88,6 @@ const WEB3FORMS_ACCESS_KEY = '05120f6b-ab58-492e-a397-d899837d5b8c';
 
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
-
-        <p class="contact-note contact-or">
-          Prefer email? Write to
-          <a class="email-inline" href="mailto:lorenzo@raphos.com?subject=Raphos%20enquiry">lorenzo@raphos.com</a>.
-        </p>
 
         <dl class="contact-meta">
           <div>
@@ -198,8 +193,6 @@ const WEB3FORMS_ACCESS_KEY = '05120f6b-ab58-492e-a397-d899837d5b8c';
   }
   .form-status[data-state='ok'] { color: var(--color-accent); }
   .form-status[data-state='error'] { color: var(--rf-coral, #e06848); }
-  .contact-or { margin-top: var(--space-2); }
-  .email-inline { color: var(--color-accent); font-weight: 540; word-break: break-word; }
 
   .contact-meta {
     margin-top: var(--space-6);
@@ -241,12 +234,12 @@ const WEB3FORMS_ACCESS_KEY = '05120f6b-ab58-492e-a397-d899837d5b8c';
           status.setAttribute('data-state', 'error');
           status.textContent =
             (data && data.message) ||
-            'Something went wrong sending the form. Please email lorenzo@raphos.com.';
+            'Something went wrong sending the form. Please try again in a moment.';
         }
       } catch {
         status.setAttribute('data-state', 'error');
         status.textContent =
-          'Network error — please try again, or email lorenzo@raphos.com.';
+          'Network error — please check your connection and try again.';
       } finally {
         if (button) button.disabled = false;
       }

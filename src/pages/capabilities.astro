@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Figure from '../components/Figure.astro';
+import { withBase } from '../lib/url';
 
 const sections = [
   {
@@ -151,7 +152,7 @@ const sections = [
         <h2 class="cta-title">Not sure which of these you need?</h2>
         <p class="cta-sub">Describe the problem — we'll tell you how we'd approach it.</p>
       </div>
-      <a class="btn btn--primary" href="mailto:lorenzo@raphos.com">
+      <a class="btn btn--primary" href={withBase('/contact')}>
         Start a conversation <span class="arrow">→</span>
       </a>
     </div>
