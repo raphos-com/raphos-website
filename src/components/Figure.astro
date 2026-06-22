@@ -16,12 +16,14 @@ export interface Props {
   fit?: 'cover' | 'contain';
   /** Set "eager" for above-the-fold heroes; everything else lazy-loads. */
   loading?: 'lazy' | 'eager';
+  /** "half" caps the figure at ~50% width (centred) on larger screens. */
+  width?: 'full' | 'half';
 }
 
-const { src, caption, ratio = '16 / 9', fit = 'cover', loading = 'lazy' } = Astro.props;
+const { src, caption, ratio = '16 / 9', fit = 'cover', loading = 'lazy', width = 'full' } = Astro.props;
 ---
 
-<figure class="fig">
+<figure class:list={['fig', { 'fig--half': width === 'half' }]}>
   <div class="fig-frame" style={`aspect-ratio: ${ratio};`}>
     <img
       src={withBase(src)}
@@ -36,6 +38,9 @@ const { src, caption, ratio = '16 / 9', fit = 'cover', loading = 'lazy' } = Astr
 
 <style>
   .fig { margin: 0; }
+  @media (min-width: 48em) {
+    .fig--half { max-width: 50%; margin-inline: auto; }
+  }
   .fig-frame {
     width: 100%;
     overflow: hidden;

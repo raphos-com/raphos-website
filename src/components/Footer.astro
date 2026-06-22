@@ -36,13 +36,27 @@ const { year = new Date().getFullYear() } = Astro.props;
       </ul>
     </nav>
 
+    <nav class="footer-col" aria-label="Products">
+      <p class="mono-label">Products</p>
+      <ul>
+        <li><a href="https://babelotheca.com" rel="noopener" target="_blank">Babelotheca ↗</a></li>
+        <li><a href="https://citydatalab.com" rel="noopener" target="_blank">CityDataLab ↗</a></li>
+        <li><a href="https://ariadnesgallery.com" rel="noopener" target="_blank">Ariadne's Gallery ↗</a></li>
+      </ul>
+    </nav>
+
     <nav class="footer-col" aria-label="Elsewhere">
       <p class="mono-label">Elsewhere</p>
       <ul>
         <li><a href="mailto:lorenzo@raphos.com">lorenzo@raphos.com</a></li>
         <li>
           <a href="https://uk.linkedin.com/company/raphos" rel="noopener" target="_blank">
-            LinkedIn
+            LinkedIn ↗
+          </a>
+        </li>
+        <li>
+          <a href="https://www.researchgate.net/profile/Lorenzo-Greco" rel="noopener" target="_blank">
+            Research papers ↗
           </a>
         </li>
         <li><span class="footer-loc">London, UK</span></li>
@@ -71,7 +85,7 @@ const { year = new Date().getFullYear() } = Astro.props;
     .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: var(--space-7); }
   }
   @media (min-width: 60em) {
-    .footer-grid { grid-template-columns: 2.2fr 1fr 1fr 1fr; }
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
   }
   .footer-word { font-weight: 680; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--color-ink); }
   .footer-tag { margin-top: var(--space-3); color: var(--color-muted); max-width: 38ch; font-size: var(--fs-200); }
