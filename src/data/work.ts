@@ -152,7 +152,6 @@ export const categories: Category[] = [
       'babelotheca',
       'citydatalab',
       'ariadnes-gallery',
-      'property-analytics-london',
     ],
   },
 ];
@@ -649,51 +648,6 @@ export const projects: Project[] = [
       'Stendhal Score across ten emotional dimensions',
       'Embedding-based related-work discovery',
       'Explore art by feeling',
-    ],
-  },
-  {
-    slug: 'property-analytics-london',
-    category: 'websites',
-    title: 'Property Analytics London',
-    kicker: 'Real estate · Quant',
-    tagline:
-      'Cross-sectional factor analysis that identifies the uncorrelated factors driving the property market.',
-    summary:
-      'Factor analysis of the London property market, surfacing the independent drivers behind market moves.',
-    tags: ['Factor analysis', 'Time series', 'Quant', 'Real estate'],
-    links: [
-      { label: 'Visit Property Analytics London', href: 'https://www.propertyanalytics.london' },
-    ],
-    intro: [
-      'Property Analytics London applies quantitative factor analysis to the property market. Markets move for many reasons at once; factor analysis decomposes those movements into a smaller set of uncorrelated factors, each of which can be understood and tracked on its own.',
-      'The result is a clearer picture of what is actually driving prices — and a more honest basis for understanding risk and return than a single headline index.',
-    ],
-    images: [
-      {
-        caption:
-          'A factor-analysis view of the property market with uncorrelated factors plotted over time',
-        ratio: '16 / 9',
-      },
-    ],
-    sections: [
-      {
-        heading: 'The factors behind the moves',
-        paragraphs: [
-          'Cross-sectional factor analysis finds the independent dimensions along which the market really varies, separating distinct drivers that a simple index blends together.',
-        ],
-        list: [
-          'Cross-sectional factor analysis of the property market.',
-          'Identification of uncorrelated factors behind market moves.',
-          'Time-series tracking of each factor.',
-          'A quantitative lens on property risk and return.',
-        ],
-      },
-    ],
-    highlights: [
-      'Factor analysis of the property market',
-      'Uncorrelated drivers, separated and tracked',
-      'Time-series factor monitoring',
-      'A quant approach to real estate',
     ],
   },
 ];
