@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CapabilityCard from '../components/CapabilityCard.astro';
-import Figure from '../components/Figure.astro';
 import { withBase } from '../lib/url';
 
 const capabilities = [
@@ -37,6 +36,22 @@ const stats = [
   { value: '660M+', label: 'Sensor data points analysed' },
   { value: 'IASS · AAG', label: 'Peer-reviewed research' },
 ];
+
+// Horizontal showcase reel — a sample of work across every area.
+const reel = [
+  { eyebrow: 'Synera', label: 'Cloud CFD with SimScale', href: '/work/synera/simscale-connector', src: '/img/work/simscale.jpg', fit: 'cover' },
+  { eyebrow: 'Synera', label: 'Form-finding & physics', href: '/work/synera/raphos-physics', src: '/img/work/physics-membrane.png', fit: 'cover' },
+  { eyebrow: 'Synera', label: 'Robust optimization', href: '/work/synera/raphos-optimizer', src: '/img/work/optimizer.gif', fit: 'cover' },
+  { eyebrow: 'Rhino · Grasshopper', label: 'Field-aligned remeshing', href: '/work/grasshopper-rhino/capybara', src: '/img/work/capybara-remesh.png', fit: 'cover' },
+  { eyebrow: 'Rhino · Grasshopper', label: 'ML & fields in Grasshopper', href: '/work/grasshopper-rhino/dodo', src: '/img/work/dodo-field.png', fit: 'cover' },
+  { eyebrow: 'Product', label: 'Babelotheca — bilingual reading', href: '/work/websites/babelotheca', src: '/img/work/babelotheca.png', fit: 'cover' },
+  { eyebrow: 'Product', label: 'CityDataLab — property econometrics', href: '/work/websites/citydatalab', src: '/img/work/citydatalab.png', fit: 'cover' },
+  { eyebrow: 'Product', label: "Ariadne's Gallery — art knowledge graph", href: '/work/websites/ariadnes-gallery', src: '/img/work/ariadnes.png', fit: 'cover' },
+  { eyebrow: 'Signal processing', label: 'High-rise wind response', href: '/capabilities', src: '/img/site/signal.png', fit: 'cover' },
+  { eyebrow: 'Geometry', label: 'Reciprocal gridshells', href: '/work', src: '/img/site/home-showcase.jpg', fit: 'cover' },
+];
+// Duplicated once so the marquee can loop seamlessly; the copy is hidden from AT.
+const reelLoop = [...reel.map((r) => ({ ...r, dup: false })), ...reel.map((r) => ({ ...r, dup: true }))];
 ---
 
 <BaseLayout
@@ -65,17 +80,37 @@ const stats = [
     </div>
   </section>
 
-  <!-- ===================== SHOWCASE ===================== -->
-  <section class="section--tight showcase">
-    <div class="container container-wide">
-      <Figure
-        src="/img/site/home-showcase.jpg"
-        caption="Detail of a reciprocal gridshell — the kind of structure our tools help design and build."
-        ratio="16 / 9"
-        fit="cover"
-        loading="eager"
-        width="half"
-      />
+  <!-- ===================== SHOWCASE REEL ===================== -->
+  <section class="section--tight reel-section">
+    <div class="container container-wide reel-head">
+      <p class="eyebrow">In the field</p>
+      <h2 class="reel-title">A look at what we build.</h2>
+    </div>
+    <div class="reel" role="region" aria-label="Selected work showcase">
+      <ul class="reel-track">
+        {reelLoop.map((item) => (
+          <li class:list={['reel-item', { 'reel-item--dup': item.dup }]}>
+            <a
+              class="reel-card"
+              href={withBase(item.href)}
+              aria-hidden={item.dup ? 'true' : undefined}
+              tabindex={item.dup ? -1 : undefined}
+            >
+              <div class="reel-frame">
+                <img
+                  src={withBase(item.src)}
+                  alt={item.dup ? '' : item.label}
+                  loading="lazy"
+                  decoding="async"
+                  class:list={['reel-img', `fit-${item.fit}`]}
+                />
+              </div>
+              <span class="reel-eyebrow">{item.eyebrow}</span>
+              <span class="reel-label">{item.label} <span class="arrow">→</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -235,4 +270,56 @@ const stats = [
   }
   .cta-title { font-size: var(--fs-500); }
   .cta-sub { color: var(--color-ink-soft); margin-top: var(--space-2); }
+
+  /* ---------- showcase reel ---------- */
+  .reel-head { margin-bottom: var(--space-5); }
+  .reel-title { font-size: var(--fs-500); margin-top: var(--space-2); }
+  .reel {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  }
+  .reel-track {
+    display: flex;
+    gap: var(--space-4);
+    width: max-content;
+    animation: reel-scroll 80s linear infinite;
+  }
+  .reel:hover .reel-track,
+  .reel:focus-within .reel-track { animation-play-state: paused; }
+  @keyframes reel-scroll { to { transform: translateX(-50%); } }
+
+  .reel-item { flex: 0 0 auto; width: clamp(15rem, 64vw, 20rem); }
+  .reel-card { display: flex; flex-direction: column; color: var(--color-ink); }
+  .reel-card:hover { text-decoration: none; }
+  .reel-frame {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  }
+  .reel-card:hover .reel-frame { border-color: var(--color-line-strong); transform: translateY(-3px); }
+  .reel-img { width: 100%; height: 100%; display: block; }
+  .reel-img.fit-cover { object-fit: cover; object-position: center top; }
+  .reel-img.fit-contain { object-fit: contain; padding: var(--space-3); }
+  .reel-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-top: var(--space-3);
+  }
+  .reel-label { font-size: var(--fs-200); font-weight: 560; margin-top: var(--space-1); }
+  .reel-card:hover .reel-label { color: var(--color-accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reel { overflow-x: auto; scroll-snap-type: x mandatory; }
+    .reel-track { animation: none; }
+    .reel-item { scroll-snap-align: start; }
+    .reel-item--dup { display: none; }
+  }
 </style>
