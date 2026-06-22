@@ -1,0 +1,70 @@
+---
+import { withBase } from '../lib/url';
+
+export interface Crumb {
+  label: string;
+  /** Root-absolute path, e.g. "/work". Omit for the current (last) item. */
+  href?: string;
+}
+
+export interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+
+const origin = Astro.site ?? new URL('https://raphos-com.github.io');
+
+// BreadcrumbList structured data — helps search engines show the hierarchy.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    ...(item.href
+      ? { item: new URL(withBase(item.href), origin).toString() }
+      : {}),
+  })),
+};
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {items.map((item, i) => (
+      <li>
+        {item.href && i < items.length - 1 ? (
+          <a href={withBase(item.href)}>{item.label}</a>
+        ) : (
+          <span aria-current="page">{item.label}</span>
+        )}
+        {i < items.length - 1 && <span class="sep" aria-hidden="true">/</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+  }
+  .breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .breadcrumbs a { color: var(--color-muted); }
+  .breadcrumbs a:hover { color: var(--color-accent); }
+  .breadcrumbs [aria-current='page'] { color: var(--color-ink-soft); }
+  .breadcrumbs .sep { color: var(--color-line-strong); }
+</style>

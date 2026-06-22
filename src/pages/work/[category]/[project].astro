@@ -1,0 +1,285 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ImagePlaceholder from '../../../components/ImagePlaceholder.astro';
+import { withBase } from '../../../lib/url';
+import { projects, getCategory, siblingProjects } from '../../../data/work';
+
+export function getStaticPaths() {
+  return projects.map((project) => {
+    const category = getCategory(project.category)!;
+    return {
+      params: { category: project.category, project: project.slug },
+      props: { project, category },
+    };
+  });
+}
+
+const { project, category } = Astro.props;
+const siblings = siblingProjects(project);
+
+// Hero image is the first slot; any further slots are interleaved with sections.
+const [heroImage, ...inlineImages] = project.images;
+
+const description = `${project.title} by Raphos — ${project.tagline}`;
+---
+
+<BaseLayout
+  title={`${project.title} — ${category.name} — Raphos`}
+  description={description}
+  path={`/work/${category.slug}/${project.slug}`}
+>
+  <article>
+    <section class="section page-head-section">
+      <div class="container container-wide">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Work', href: '/work' },
+            { label: category.name, href: `/work/${category.slug}` },
+            { label: project.title },
+          ]}
+        />
+        <p class="eyebrow">{project.kicker}</p>
+        <h1 class="page-title">{project.title}</h1>
+        <p class="lede page-lede">{project.tagline}</p>
+
+        {project.links.length > 0 && (
+          <div class="hero-actions">
+            {project.links.map((l, i) => (
+              <a
+                class:list={['btn', i === 0 ? 'btn--primary' : 'btn--ghost']}
+                href={l.href}
+                rel="noopener"
+                target="_blank"
+              >
+                {l.label} <span class="arrow">→</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    {heroImage && (
+      <section class="section--tight">
+        <div class="container container-wide">
+          <ImagePlaceholder caption={heroImage.caption} ratio={heroImage.ratio} />
+        </div>
+      </section>
+    )}
+
+    <section class="section">
+      <div class="container container-wide proj-layout">
+        <div class="proj-main">
+          <div class="prose">
+            {project.intro.map((p) => <p class="lede-intro">{p}</p>)}
+          </div>
+
+          {project.sections.map((s, i) => (
+            <div class="proj-section">
+              <h2>{s.heading}</h2>
+              {s.paragraphs.map((p) => <p>{p}</p>)}
+              {s.list && (
+                <ul class="feature-list">
+                  {s.list.map((item) => (
+                    <li><span class="tick" aria-hidden="true">—</span><span>{item}</span></li>
+                  ))}
+                </ul>
+              )}
+              {inlineImages[i] && (
+                <div class="inline-img">
+                  <ImagePlaceholder
+                    caption={inlineImages[i].caption}
+                    ratio={inlineImages[i].ratio}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <aside class="proj-aside">
+          <div class="aside-card">
+            <p class="mono-label">At a glance</p>
+            <ul class="glance-list">
+              {project.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </div>
+
+          {project.tags.length > 0 && (
+            <div class="aside-card">
+              <p class="mono-label">Stack &amp; methods</p>
+              <ul class="tag-list">
+                {project.tags.map((t) => <li>{t}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {project.links.length > 0 && (
+            <div class="aside-card">
+              <p class="mono-label">Links</p>
+              <ul class="aside-links">
+                {project.links.map((l) => (
+                  <li>
+                    <a href={l.href} rel="noopener" target="_blank">
+                      {l.label}<span class="ext" aria-hidden="true">↗</span>
+                    </a>
+                    {l.note && <span class="ref-note">{l.note}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </aside>
+      </div>
+    </section>
+
+    {siblings.length > 0 && (
+      <section class="section section--alt">
+        <div class="container container-wide">
+          <div class="section-head">
+            <p class="eyebrow">More in {category.name}</p>
+            <h2>Related work.</h2>
+          </div>
+          <ul class="related-grid">
+            {siblings.map((s) => (
+              <li>
+                <a class="related-card" href={withBase(`/work/${category.slug}/${s.slug}`)}>
+                  <span class="mono-label">{s.kicker}</span>
+                  <span class="related-title">{s.title}</span>
+                  <span class="related-sum">{s.summary}</span>
+                  <span class="related-more">Read more <span class="arrow">→</span></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="back-link">
+            <a href={withBase(`/work/${category.slug}`)}>← All {category.name}</a>
+          </p>
+        </div>
+      </section>
+    )}
+
+    <section class="section--tight">
+      <div class="container container-wide cta-band">
+        <div>
+          <h2 class="cta-title">Interested in {project.title}?</h2>
+          <p class="cta-sub">Tell us about your problem — we’ll tell you how we’d approach it.</p>
+        </div>
+        <a class="btn btn--primary" href="mailto:lorenzo@raphos.com">
+          Get in touch <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .page-head-section { padding-bottom: var(--space-6); }
+  .page-title { font-size: var(--fs-700); margin-top: var(--space-4); max-width: 16ch; }
+  .page-lede { margin-top: var(--space-5); max-width: 54ch; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+
+  .proj-layout { display: grid; gap: var(--space-7); }
+  @media (min-width: 56em) {
+    .proj-layout { grid-template-columns: 1.7fr 1fr; gap: var(--space-9); align-items: start; }
+  }
+
+  .prose { max-width: 64ch; }
+  .lede-intro { font-size: var(--fs-400); line-height: var(--lh-snug); color: var(--color-ink-soft); }
+  .lede-intro + .lede-intro { margin-top: var(--space-4); }
+
+  .proj-section { margin-top: var(--space-8); max-width: 64ch; }
+  .proj-section h2 { font-size: var(--fs-500); }
+  .proj-section p { margin-top: var(--space-4); color: var(--color-ink-soft); }
+
+  .feature-list { margin-top: var(--space-5); }
+  .feature-list li {
+    display: flex;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-top: 1px solid var(--color-line);
+    color: var(--color-ink-soft);
+    font-size: var(--fs-200);
+  }
+  .feature-list li:last-child { border-bottom: 1px solid var(--color-line); }
+  .tick { color: var(--color-accent); font-weight: 700; }
+
+  .inline-img { margin-top: var(--space-6); }
+
+  /* aside */
+  .proj-aside { display: grid; gap: var(--space-5); }
+  @media (min-width: 56em) {
+    .proj-aside { position: sticky; top: 5.5rem; }
+  }
+  .aside-card {
+    padding: var(--space-5);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+  }
+  .glance-list { margin-top: var(--space-3); }
+  .glance-list li {
+    position: relative;
+    padding-left: var(--space-4);
+    padding-block: var(--space-2);
+    font-size: var(--fs-200);
+    color: var(--color-ink-soft);
+  }
+  .glance-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.85em;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+  .tag-list li {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+  }
+  .aside-links { margin-top: var(--space-3); display: grid; gap: var(--space-3); }
+  .aside-links a { font-size: var(--fs-200); font-weight: 540; }
+  .aside-links .ref-note { display: block; font-size: var(--fs-100); color: var(--color-muted); }
+  .ext { font-size: 0.7em; vertical-align: super; color: var(--color-muted); margin-left: 0.15em; }
+
+  /* related */
+  .related-grid { display: grid; gap: var(--space-5); }
+  @media (min-width: 44em) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 64em) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    height: 100%;
+    padding: var(--space-5);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    color: var(--color-ink);
+    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  }
+  .related-card:hover { text-decoration: none; border-color: var(--color-line-strong); transform: translateY(-3px); }
+  .related-title { font-size: var(--fs-400); font-weight: 620; }
+  .related-sum { font-size: var(--fs-200); color: var(--color-ink-soft); flex: 1; }
+  .related-more { margin-top: var(--space-3); font-size: var(--fs-200); font-weight: 540; color: var(--color-accent); }
+  .back-link { margin-top: var(--space-6); }
+  .back-link a { font-size: var(--fs-200); font-weight: 540; }
+
+  .cta-band {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: var(--space-5); padding: var(--space-7); border-radius: var(--radius);
+    border: 1px solid var(--color-line);
+    background: radial-gradient(120% 140% at 100% 0%, var(--color-accent-wash), transparent 60%), var(--color-bg-alt);
+  }
+  .cta-title { font-size: var(--fs-500); }
+  .cta-sub { color: var(--color-ink-soft); margin-top: var(--space-2); }
+</style>

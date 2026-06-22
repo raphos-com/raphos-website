@@ -1,0 +1,67 @@
+---
+// Reserves layout space for imagery that will be supplied later.
+// When a real image arrives, drop it into /public and replace this
+// component with an <img> (or Astro <Image>) using the same caption as alt text.
+
+export interface Props {
+  /** Describes the intended image — also serves as the future alt text. */
+  caption: string;
+  /** CSS aspect-ratio, e.g. "16 / 9", "4 / 3", "1 / 1". */
+  ratio?: string;
+  /** Smaller label in the corner. */
+  label?: string;
+}
+
+const { caption, ratio = '16 / 9', label = 'Image coming soon' } = Astro.props;
+---
+
+<figure class="img-ph">
+  <div class="img-ph-frame" style={`aspect-ratio: ${ratio};`} role="img" aria-label={caption}>
+    <svg class="img-ph-glyph" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+      <rect x="4" y="8" width="40" height="32" rx="3" fill="none"
+        stroke="currentColor" stroke-width="1.6" />
+      <circle cx="16" cy="19" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6" />
+      <path d="M8 36 L20 24 L28 31 L34 26 L44 36" fill="none"
+        stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+    </svg>
+    <span class="img-ph-label">{label}</span>
+  </div>
+  <figcaption class="img-ph-cap">{caption}</figcaption>
+</figure>
+
+<style>
+  .img-ph { margin: 0; }
+  .img-ph-frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    border: 1px dashed var(--color-line-strong);
+    border-radius: var(--radius);
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        var(--color-bg-alt),
+        var(--color-bg-alt) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    color: var(--color-muted);
+  }
+  .img-ph-glyph { color: var(--color-line-strong); }
+  .img-ph-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .img-ph-cap {
+    margin-top: var(--space-2);
+    font-size: var(--fs-100);
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+</style>
