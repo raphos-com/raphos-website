@@ -27,6 +27,15 @@ const { year = new Date().getFullYear() } = Astro.props;
       </ul>
     </nav>
 
+    <nav class="footer-col" aria-label="Work">
+      <p class="mono-label">Work</p>
+      <ul>
+        <li><a href={withBase('/work/synera')}>Synera add-ins</a></li>
+        <li><a href={withBase('/work/grasshopper-rhino')}>Grasshopper / Rhino</a></li>
+        <li><a href={withBase('/work/websites')}>Websites &amp; products</a></li>
+      </ul>
+    </nav>
+
     <nav class="footer-col" aria-label="Elsewhere">
       <p class="mono-label">Elsewhere</p>
       <ul>
@@ -60,6 +69,9 @@ const { year = new Date().getFullYear() } = Astro.props;
   }
   @media (min-width: 48em) {
     .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: var(--space-7); }
+  }
+  @media (min-width: 60em) {
+    .footer-grid { grid-template-columns: 2.2fr 1fr 1fr 1fr; }
   }
   .footer-word { font-weight: 680; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--color-ink); }
   .footer-tag { margin-top: var(--space-3); color: var(--color-muted); max-width: 38ch; font-size: var(--fs-200); }

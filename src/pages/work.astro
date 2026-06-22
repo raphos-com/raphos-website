@@ -1,68 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { withBase } from '../lib/url';
+import { categories, projectsInCategory } from '../data/work';
 
-const products = [
-  {
-    title: 'Babelotheca',
-    kicker: 'Language · Reading',
-    href: 'https://babelotheca.com',
-    tags: ['NLP', 'Alignment', 'Web', 'EPUB/PDF'],
-    body:
-      'Read the world’s classics in two languages at once — aligned sentence by sentence, side by side, with tap-to-explain grammar and idiom. Bring your own PDF and get a bilingual version back in seconds.',
-  },
-  {
-    title: 'CityDataLab',
-    kicker: 'Real estate · Econometrics',
-    href: 'https://citydatalab.com',
-    tags: ['Hedonic models', 'Regression', 'Open data'],
-    body:
-      'Hedonic factor models that separate genuine price growth from changes in what is being sold — isolating the true return on floor area, freehold, energy rating and location across London, New York, Paris and more.',
-  },
-  {
-    title: "Ariadne's Gallery",
-    kicker: 'Art · Knowledge graphs',
-    href: 'https://ariadnesgallery.com',
-    tags: ['Knowledge graph', 'Embeddings', 'Search'],
-    body:
-      'Art exploration without dead ends: 116,000+ works connected into a living knowledge graph, with a “Stendhal Score” that rates every piece across ten emotional dimensions so you can search by how art feels.',
-  },
-  {
-    title: 'Property Analytics London',
-    kicker: 'Real estate · Quant',
-    href: 'https://www.propertyanalytics.london',
-    tags: ['Factor analysis', 'Time series'],
-    body:
-      'Cross-sectional factor analysis of the property market that identifies the uncorrelated factors driving market moves.',
-  },
-];
-
-const tools = [
-  {
-    title: 'Dodo',
-    kicker: 'Rhino / Grasshopper plugin',
-    href: 'https://www.food4rhino.com/en/app/dodo',
-    tags: ['ML', 'Optimization', 'Tensor fields', 'Linear algebra'],
-    body:
-      'A free plugin collecting scientific tools for computational designers — machine learning, non-linear optimization, tensor-field manipulation, isosurfaces via marching tetrahedra and linear algebra.',
-  },
-  {
-    title: 'Capybara',
-    kicker: 'Rhino / Grasshopper plugin · IASS 2018 @ MIT',
-    href: 'https://www.food4rhino.com/en/app/capybara',
-    tags: ['CGAL', 'libigl', 'Quad remeshing'],
-    body:
-      'Advanced mesh editing and analysis built on optimized C++ libraries (CGAL, libigl). Re-meshes any tri-mesh into a quad-only mesh by integrating conjugated stress- and curvature-aligned vector fields.',
-  },
-  {
-    title: 'Synera add-ins',
-    kicker: 'Partnership',
-    tags: ['Physics', 'Optimizer', 'SimScale', 'MS Office'],
-    body:
-      'Add-ins for the Synera visual-programming platform: Raphos Physics (a fast, robust spring-particle / dynamic-relaxation solver), Raphos Tools, Raphos Optimizer, a SimScale CFD connector and an MS Office connector.',
-  },
-];
-
+// Applied research / selected projects — not a category with child pages,
+// shown here as a closing section.
 const research = [
   {
     title: 'Wind monitoring & structural dynamics',
@@ -93,7 +36,7 @@ const research = [
 
 <BaseLayout
   title="Work — Raphos"
-  description="Selected Raphos work: data-science web products (Babelotheca, CityDataLab, Ariadne's Gallery, Property Analytics London), Rhino/Grasshopper tools (Dodo, Capybara), Synera add-ins and applied research."
+  description="Selected Raphos work, organised like the studio itself: Synera add-ins, Rhino/Grasshopper plugins (Dodo, Capybara), data-science web products (Babelotheca, CityDataLab, Ariadne's Gallery, Property Analytics London) and applied research."
   path="/work"
 >
   <section class="section page-head-section">
@@ -102,49 +45,55 @@ const research = [
       <h1 class="page-title">Tools, products and research we’re proud of.</h1>
       <p class="lede page-lede">
         From plugins used by designers worldwide to data-science products and
-        instrumented buildings — a sample of what we build and ship.
+        instrumented buildings — a sample of what we build and ship, grouped into
+        three areas. Each project has its own page.
       </p>
+
+      <nav class="cat-jump" aria-label="Work areas">
+        {categories.map((c) => (
+          <a href={withBase(`/work/${c.slug}`)}>
+            <span class="cat-jump-eyebrow">{c.eyebrow}</span>
+            <span class="cat-jump-name">{c.name} <span class="arrow">→</span></span>
+          </a>
+        ))}
+      </nav>
     </div>
   </section>
 
-  <!-- Web / data-science products (featured) -->
-  <section class="section section--alt">
-    <div class="container container-wide">
-      <div class="section-head">
-        <p class="eyebrow">Products</p>
-        <h2>Data-science products we build and run.</h2>
-        <p>Independent products where we own the full stack — from the data and the models to the UI.</p>
-      </div>
-      <div class="grid grid--2 grid--3">
-        {products.map((p) => (
-          <ProjectCard title={p.title} kicker={p.kicker} href={p.href} tags={p.tags}>
-            {p.body}
-          </ProjectCard>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Tools & plugins -->
-  <section class="section">
-    <div class="container container-wide">
-      <div class="section-head">
-        <p class="eyebrow">Tools</p>
-        <h2>Plugins &amp; engineering tools.</h2>
-        <p>Free and commercial tools that put advanced geometry, optimization and ML in designers’ hands.</p>
-      </div>
-      <div class="grid grid--2 grid--3">
-        {tools.map((t) => (
-          <ProjectCard title={t.title} kicker={t.kicker} href={t.href} tags={t.tags}>
-            {t.body}
-          </ProjectCard>
-        ))}
-      </div>
-    </div>
-  </section>
+  {categories.map((category, i) => {
+    const children = projectsInCategory(category.slug);
+    return (
+      <section class:list={['section', { 'section--alt': i % 2 === 0 }]}>
+        <div class="container container-wide">
+          <div class="cat-head">
+            <div>
+              <p class="eyebrow">{category.eyebrow}</p>
+              <h2><a href={withBase(`/work/${category.slug}`)}>{category.name}</a></h2>
+              <p class="cat-lede">{category.lede}</p>
+            </div>
+            <a class="cat-all" href={withBase(`/work/${category.slug}`)}>
+              Overview <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="grid grid--2 grid--3">
+            {children.map((p) => (
+              <ProjectCard
+                title={p.title}
+                kicker={p.kicker}
+                href={withBase(`/work/${category.slug}/${p.slug}`)}
+                tags={p.tags}
+              >
+                {p.summary}
+              </ProjectCard>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  })}
 
   <!-- R&D / selected projects -->
-  <section class="section section--alt">
+  <section class="section">
     <div class="container container-wide">
       <div class="section-head">
         <p class="eyebrow">R&amp;D</p>
@@ -178,6 +127,46 @@ const research = [
   .page-head-section { padding-bottom: var(--space-7); }
   .page-title { font-size: var(--fs-700); margin-top: var(--space-4); max-width: 18ch; }
   .page-lede { margin-top: var(--space-5); }
+
+  .cat-jump {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-7);
+  }
+  @media (min-width: 48em) { .cat-jump { grid-template-columns: repeat(3, 1fr); } }
+  .cat-jump a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+  .cat-jump a:hover { text-decoration: none; border-color: var(--color-accent); background: var(--color-accent-wash); }
+  .cat-jump-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--fs-100);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .cat-jump-name { font-weight: 600; font-size: var(--fs-300); }
+
+  .cat-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .cat-head h2 { font-size: var(--fs-600); margin-top: var(--space-3); }
+  .cat-head h2 a { color: var(--color-ink); }
+  .cat-head h2 a:hover { color: var(--color-accent); text-decoration: none; }
+  .cat-lede { margin-top: var(--space-3); color: var(--color-ink-soft); max-width: 60ch; }
+  .cat-all { font-size: var(--fs-200); font-weight: 540; white-space: nowrap; }
 
   .cta-band {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
