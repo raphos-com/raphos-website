@@ -113,6 +113,7 @@ export const categories: Category[] = [
       'raphos-tools',
       'simscale-connector',
       'ms-office-connector',
+      'raphos-teams-connector',
     ],
   },
   {
@@ -193,15 +194,15 @@ export const projects: Project[] = [
       {
         caption:
           'A tensile membrane form-found by the Raphos Physics solver',
-        src: '/img/work/physics-tent.png',
+        src: '/img/work/physics-membrane.png',
         ratio: '16 / 9',
         fit: 'cover',
       },
       {
-        caption: 'A cable net relaxed into a minimal surface inside a Synera workflow',
-        src: '/img/work/physics-cablenet.png',
-        ratio: '16 / 9',
-        fit: 'contain',
+        caption: 'Designing with scalar fields driven by the solver',
+        src: '/img/work/physics-fields.jpg',
+        ratio: '4 / 3',
+        fit: 'cover',
       },
     ],
     sections: [
@@ -347,8 +348,8 @@ export const projects: Project[] = [
     images: [
       {
         caption:
-          'A SimScale CFD field result visualised back in Synera, driven from the workflow on the left',
-        src: '/img/work/simscale.png',
+          'A conjugate-heat-transfer CFD result on cooling channels, run on SimScale from a Synera workflow',
+        src: '/img/work/simscale.jpg',
         ratio: '16 / 9',
         fit: 'cover',
       },
@@ -415,6 +416,64 @@ export const projects: Project[] = [
       'Two-way Excel / Office integration',
       'Automated reporting and data hand-off',
       'Bridges engineering workflows and business tools',
+    ],
+  },
+
+  {
+    slug: 'raphos-teams-connector',
+    category: 'synera',
+    title: 'Raphos Teams Connector',
+    kicker: 'Synera add-in · Connector',
+    tagline:
+      'Send and receive Microsoft Teams messages directly from Synera workflows.',
+    summary:
+      'Connector linking Synera to Microsoft Teams — notify people and channels, share reports, and trigger runs from messages.',
+    tags: ['Microsoft Teams', 'Notifications', 'Automation', 'Reporting'],
+    links: [{ label: 'Synera platform', href: 'https://www.synera.io' }],
+    intro: [
+      'The Raphos Teams Connector plugs Synera straight into Microsoft Teams. From inside a workflow you can send and receive messages — to individual chats or to channels — so the people who care about a run are kept in the loop automatically, with no one having to watch the canvas.',
+      'It turns Teams into both an output and an input for automation: push notifications and reports out as work completes, and let incoming messages or newly-ready files trigger the next run.',
+    ],
+    images: [
+      {
+        caption:
+          'Synera streaming live Microsoft Teams messages — simulation-complete notifications from the Raphos Teams add-in',
+        src: '/img/work/teams.gif',
+        ratio: '16 / 9',
+        fit: 'cover',
+      },
+    ],
+    sections: [
+      {
+        heading: 'Teams in your workflow',
+        paragraphs: [
+          'Authenticate once, then read and write Teams messages as ordinary workflow steps. Messages can stream in live, so a workflow can react the moment something is posted.',
+        ],
+        list: [
+          'Send messages to user chats or Teams channels.',
+          'Read and stream incoming messages without polling or refreshing.',
+          'Read and write files to a shared drive, and reply to existing posts.',
+          'Trigger a new run when a chat or channel message arrives.',
+        ],
+      },
+      {
+        heading: 'Keep people and pipelines in sync',
+        paragraphs: [
+          'Long-running engineering tasks shouldn’t need babysitting. The connector lets a workflow tell the right people what’s happening — and react to what they send back.',
+        ],
+        list: [
+          'Get notified the moment a simulation or analysis completes.',
+          'Share reports and results with stakeholders automatically.',
+          'Notify your team on the progress of an analysis.',
+          'Trigger a new run when upstream files are ready.',
+        ],
+      },
+    ],
+    highlights: [
+      'Send & receive Teams messages from Synera',
+      'Live message streaming — no polling',
+      'Automatic completion alerts and report sharing',
+      'Incoming messages and ready files trigger runs',
     ],
   },
 
