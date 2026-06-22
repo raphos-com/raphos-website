@@ -28,8 +28,10 @@ use the files here:
   **Raphos blue `#2f5fd0`**. Reference tokens, never hardcode hex.
 - **Type:** Inter for everything; JetBrains Mono for eyebrows / data labels.
   British spelling, sentence case, no emoji.
-- **Mark:** the **dodo**. `dodo-solid` for the everyday logo; `dodo-node` for
-  expressive/app-icon moments.
+- **Mark:** the **node-dodo** (`dodo-node`) — the silhouette outline with
+  interpolated accent dots — is the primary mark **everywhere** (logo, header,
+  favicon, app icons). The plain `dodo-solid` fill is a fallback only for very
+  small or single-colour contexts where the outline+dots won't hold up.
 - **Feel:** type-driven, technical, image-light. Hairline borders, soft 10px
   radii, quiet ease-out motion, hover-only shadows.
 

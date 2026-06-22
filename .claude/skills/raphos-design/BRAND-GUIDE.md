@@ -176,7 +176,8 @@ retired in favour of one coherent mark. The dodo set lives in
 
 1. **Solid · ink** and **Solid · accent** — flat fills; holds down to ~22px.
    *This is the primary mark + wordmark.*
-2. **App tile** — accent-soft dodo on the dark `#0e1014` tile (also the favicon).
+2. **App tile** — node-dodo (light outline + bright nodes) on the dark
+   `#0e1014` tile (also the favicon).
 3. **Node-dodo** — the silhouette as an *outline with interpolated accent
    dots on its contour* — the expressive variant that folds the engineering
    node-graph motif into the dodo. Use for hero moments, loaders, app icons.
@@ -184,8 +185,10 @@ retired in favour of one coherent mark. The dodo set lives in
 
 The blue **`#2f5fd0` is confirmed** as the accent across all of these.
 
-**Suggested usage:** solid dodo as the everyday logo/wordmark; node-dodo as the
-expressive/app-icon treatment.
+**Usage (decided):** the **node-dodo is the primary mark everywhere** — header,
+favicon, lockups and app icons all use the outline + accent-dots variant. The
+solid dodo (`dodo-solid` / `dodo-accent`) is kept only as a fallback for very
+small or single-colour contexts where the outline + dots won't read.
 
 ---
 
