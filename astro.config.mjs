@@ -2,12 +2,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Static site deployed to GitHub Pages as a project site, served under the
-// repository subpath. `site` + `base` make Astro emit correct asset URLs,
-// canonical/OG tags and the sitemap for https://raphos-com.github.io/raphos-website/.
+// Static site deployed to GitHub Pages and served at the root of the custom
+// domain raphos.com (a CNAME file in public/ pins the domain). `site` + `base`
+// make Astro emit correct asset URLs, canonical/OG tags and the sitemap.
 export default defineConfig({
-  site: 'https://raphos-com.github.io',
-  base: '/raphos-website',
+  site: 'https://raphos.com',
+  base: '/',
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
