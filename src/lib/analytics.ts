@@ -7,7 +7,7 @@
 // The value is public by design: it ships in the page source of every site
 // that uses Analytics, so there is nothing to keep secret and no need for a
 // build secret. Leave it empty to disable tracking entirely.
-export const GA_MEASUREMENT_ID = '';
+export const GA_MEASUREMENT_ID = 'G-H1VG4ZZBQT';
 
 /**
  * Whether to emit the Analytics tag for the current build. Tracking is limited
